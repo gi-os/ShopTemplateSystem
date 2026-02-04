@@ -20,7 +20,15 @@ This directory contains Claude Code skills that help with common tasks in the Sh
 /website-folder-structure
 ```
 
-Or simply ask Claude: "Help me build the website folder structure"
+Or use any of these natural language phrases:
+- "STS website"
+- "Shuttle website"
+- "website folder structure"
+- "setup website"
+- "create website"
+- "build website folder"
+
+The skill will automatically activate when you use any of these phrases.
 
 **What it does**:
 - Walks you through creating all required folders

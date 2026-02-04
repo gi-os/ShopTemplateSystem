@@ -211,7 +211,7 @@ export default function CheckoutPage() {
                     <div className="font-semibold" style={{ color: design.colors.text }}>
                       LR Paris freight service
                     </div>
-                    <parameter name="text-sm" style={{ color: design.colors.textLight }}>
+                    <div className="text-sm" style={{ color: design.colors.textLight }}>
                       We'll arrange shipping through LR Paris
                     </div>
                   </div>

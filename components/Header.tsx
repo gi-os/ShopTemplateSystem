@@ -88,25 +88,27 @@ export default function Header({ companyName, logoPath, primaryColor, secondaryC
               </button>
 
               {showDropdown && collections.length > 0 && (
-                <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-lg py-2 z-50">
-                  <Link
-                    href="/collections"
-                    className="block px-4 py-2 hover:bg-gray-100 transition-colors"
-                    style={{ color: primaryColor }}
-                  >
-                    <span className="font-semibold">All Collections</span>
-                  </Link>
-                  <div className="border-t my-2" style={{ borderColor: '#e5e5e5' }}></div>
-                  {collections.map((collection) => (
+                <div className="absolute top-full left-0 pt-2 z-50">
+                  <div className="w-56 bg-white rounded-lg shadow-lg py-2">
                     <Link
-                      key={collection.id}
-                      href={`/collections/${collection.id}`}
+                      href="/collections"
                       className="block px-4 py-2 hover:bg-gray-100 transition-colors"
                       style={{ color: primaryColor }}
                     >
-                      {collection.name}
+                      <span className="font-semibold">All Collections</span>
                     </Link>
-                  ))}
+                    <div className="border-t my-2" style={{ borderColor: '#e5e5e5' }}></div>
+                    {collections.map((collection) => (
+                      <Link
+                        key={collection.id}
+                        href={`/collections/${collection.id}`}
+                        className="block px-4 py-2 hover:bg-gray-100 transition-colors"
+                        style={{ color: primaryColor }}
+                      >
+                        {collection.name}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>

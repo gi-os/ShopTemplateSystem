@@ -11,30 +11,36 @@ export async function GET(
 
     // Parse productId to get collection and item paths
     // productId format: "collection-slug-item-slug"
-    const parts = productId.split('-');
-    if (parts.length < 2) {
-      return new NextResponse('Invalid product ID', { status: 400 });
-    }
-
-    // We need to find the actual collection and item folders
     const collectionsPath = path.join(process.cwd(), 'DATABASE', 'ShopCollections');
     const collections = fs.readdirSync(collectionsPath, { withFileTypes: true });
 
     let imagePath: string | null = null;
 
+    function slugify(text: string): string {
+      return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+    }
+
+    // Search for the matching product by checking if the productId matches
     for (const collection of collections) {
       if (!collection.isDirectory()) continue;
 
+      const collectionSlug = slugify(collection.name);
       const collectionPath = path.join(collectionsPath, collection.name);
       const items = fs.readdirSync(collectionPath, { withFileTypes: true });
 
       for (const item of items) {
         if (!item.isDirectory()) continue;
 
-        const photosPath = path.join(collectionPath, item.name, 'Photos', filename);
-        if (fs.existsSync(photosPath)) {
-          imagePath = photosPath;
-          break;
+        const itemSlug = slugify(item.name);
+        const generatedProductId = `${collectionSlug}-${itemSlug}`;
+
+        // Check if this matches the requested productId
+        if (generatedProductId === productId) {
+          const photosPath = path.join(collectionPath, item.name, 'Photos', filename);
+          if (fs.existsSync(photosPath)) {
+            imagePath = photosPath;
+            break;
+          }
         }
       }
 
@@ -42,6 +48,17 @@ export async function GET(
     }
 
     if (!imagePath) {
+      // Return placeholder image if not found
+      const placeholderPath = path.join(process.cwd(), 'DATABASE', 'Design', 'Logos', 'placeholder.svg');
+      if (fs.existsSync(placeholderPath)) {
+        const fileBuffer = fs.readFileSync(placeholderPath);
+        return new NextResponse(fileBuffer, {
+          headers: {
+            'Content-Type': 'image/svg+xml',
+            'Cache-Control': 'public, max-age=3600',
+          },
+        });
+      }
       return new NextResponse('Image not found', { status: 404 });
     }
 

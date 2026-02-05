@@ -267,7 +267,7 @@ export default function CheckoutPage() {
                       onChange={(e) => setCountry(e.target.value)}
                       className="w-full px-4 py-2 border focus:outline-none focus:ring-2"
                       style={{ borderColor: design.colors.border, borderRadius: `${design.style.cornerRadius}px`, fontFamily: design.fonts.bodyFont }}
-                      placeholder="country"
+                      placeholder="United States"
                     />
                   </div>
                   <div>

@@ -92,7 +92,7 @@ export default function Header({
             </Link>
             {/* Collections Dropdown */}
             <div
-              className="relative pb-2"
+              className="relative"
               onMouseEnter={() => setShowDropdown(true)}
               onMouseLeave={() => setShowDropdown(false)}
             >
@@ -118,10 +118,11 @@ export default function Header({
               </button>
               {showDropdown && (
                 <div
-                  className="absolute top-full left-0 w-56 shadow-lg py-2 z-50"
+                  className="absolute top-full left-0 w-56 shadow-lg pt-2 pb-2 z-50"
                   style={{
                     backgroundColor: 'white',
                     borderRadius: `${cornerRadius}px`,
+                    marginTop: '2px'
                   }}
                   onMouseEnter={() => setShowDropdown(true)}
                   onMouseLeave={() => setShowDropdown(false)}

@@ -133,7 +133,7 @@ export default function AboutPage() {
                 onClick={() => toggleFAQ(index)}
                 className="w-full text-left px-6 py-4 flex justify-between items-center hover:opacity-80 transition-opacity"
                 style={{
-                  backgroundColor: openFAQ === index ? design.colors.accent : design.colors.background,
+                  backgroundColor: design.colors.background,
                 }}
               >
                 <h3

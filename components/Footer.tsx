@@ -19,12 +19,22 @@ export default function Footer({ footerText, primaryColor, bodyFont = 'Inter' }:
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center space-y-4">
           <p className="text-center text-white text-sm" style={{ fontFamily: bodyFont }}>{footerText}</p>
-          <p className="text-center text-white text-xs opacity-75" style={{ fontFamily: bodyFont }}>
-            {version} • Built with LR Paris Shuttle •{' '}
-            <Link href="/about" className="underline hover:opacity-80">
-              About
+          <div className="flex items-center gap-2">
+            <p className="text-center text-white text-xs opacity-75" style={{ fontFamily: bodyFont }}>
+              {version} • Built with LR Paris Shuttle •{' '}
+              <Link href="/about" className="underline hover:opacity-80">
+                About
+              </Link>
+            </p>
+            {/* Easter Egg */}
+            <Link
+              href="/secret"
+              className="text-2xl hover:scale-110 transition-transform cursor-pointer"
+              title="🥚"
+            >
+              🥚
             </Link>
-          </p>
+          </div>
           {/* LR Paris Logo */}
           <a
             href="https://lrparis.com"

@@ -1,6 +1,9 @@
+'use client';
+
 import { getDesignData, getFAQData } from '@/lib/design';
 import { getVersionInfo } from '@/lib/version';
 import Link from 'next/link';
+import { useState } from 'react';
 
 // Helper function to format FAQ answer text with email links
 function formatAnswer(answer: string, secondaryColor: string) {
@@ -48,6 +51,11 @@ export default function AboutPage() {
   const design = getDesignData();
   const versionInfo = getVersionInfo();
   const faqs = getFAQData();
+  const [openFAQ, setOpenFAQ] = useState<number | null>(null);
+
+  const toggleFAQ = (index: number) => {
+    setOpenFAQ(openFAQ === index ? null : index);
+  };
 
   return (
     <div className="container mx-auto px-4 py-12">
@@ -68,24 +76,55 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* FAQ Section */}
+      {/* FAQ Section with Accordion */}
       <section className="mb-16">
         <h2 className="text-3xl font-bold mb-8" style={{ color: design.colors.primary }}>
           Frequently Asked Questions
         </h2>
-        <div className="space-y-8 max-w-4xl">
+        <div className="space-y-4 max-w-4xl">
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="border-b pb-6"
+              className="border rounded-lg overflow-hidden"
               style={{ borderColor: design.colors.border }}
             >
-              <h3 className="text-xl font-semibold mb-3" style={{ color: design.colors.primary }}>
-                {faq.question}
-              </h3>
-              <div className="text-base leading-relaxed" style={{ color: design.colors.text }}>
-                {formatAnswer(faq.answer, design.colors.secondary)}
-              </div>
+              {/* Question - Clickable Header */}
+              <button
+                onClick={() => toggleFAQ(index)}
+                className="w-full text-left px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
+              >
+                <h3 className="text-xl font-semibold pr-4" style={{ color: design.colors.primary }}>
+                  {faq.question}
+                </h3>
+                <svg
+                  className={`w-6 h-6 flex-shrink-0 transition-transform ${
+                    openFAQ === index ? 'rotate-180' : ''
+                  }`}
+                  style={{ color: design.colors.primary }}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+
+              {/* Answer - Collapsible Content */}
+              {openFAQ === index && (
+                <div
+                  className="px-6 py-4 border-t"
+                  style={{ borderColor: design.colors.border }}
+                >
+                  <div className="text-base leading-relaxed" style={{ color: design.colors.text }}>
+                    {formatAnswer(faq.answer, design.colors.secondary)}
+                  </div>
+                </div>
+              )}
             </div>
           ))}
         </div>

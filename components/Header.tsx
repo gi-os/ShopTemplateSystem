@@ -51,6 +51,12 @@ export default function Header({ companyName, logoPath, primaryColor, secondaryC
               Home
             </Link>
             <Link
+              href="/about"
+              className="text-white hover:opacity-80 transition-opacity"
+            >
+              About
+            </Link>
+            <Link
               href="/collections"
               className="text-white hover:opacity-80 transition-opacity"
             >

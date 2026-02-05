@@ -44,26 +44,36 @@ export default function SecretPage() {
 
   return (
     <div className="container mx-auto px-4 py-12">
-      <div className="max-w-4xl mx-auto text-center">
+      <div className="max-w-4xl mx-auto">
         <h1
-          className="text-5xl font-bold mb-8"
+          className="text-6xl font-bold mb-12 text-center"
           style={{
-            color: design.colors.primary,
+            color: design.colors.text,
             fontFamily: design.fonts.titleFont,
           }}
         >
-          🎉 You Found the Easter Egg! 🥚
+          You Found the Easter Egg!
         </h1>
 
         <div
-          className="border p-8 mb-8"
+          className="border p-12"
           style={{
             borderColor: design.colors.border,
             backgroundColor: design.colors.background,
             borderRadius: `${design.style.cornerRadius}px`,
           }}
         >
-          <div className="mb-6">
+          <p
+            className="text-center text-2xl mb-8"
+            style={{
+              color: design.colors.text,
+              fontFamily: design.fonts.bodyFont,
+            }}
+          >
+            Basil the Cat
+          </p>
+
+          <div className="mb-8">
             <img
               src="/basil-cat.jpg"
               alt="Basil the Cat"
@@ -72,18 +82,18 @@ export default function SecretPage() {
             />
           </div>
 
-          <p
-            className="text-2xl font-semibold mb-4"
+          <h2
+            className="text-4xl font-bold mb-6 text-center"
             style={{
-              color: design.colors.primary,
+              color: design.colors.text,
               fontFamily: design.fonts.titleFont,
             }}
           >
-            Meet Basil! 🐱
-          </p>
+            Meet Basil!
+          </h2>
 
           <p
-            className="text-xl mb-6"
+            className="text-2xl mb-6 text-center"
             style={{
               color: design.colors.text,
               fontFamily: design.fonts.bodyFont,
@@ -93,27 +103,29 @@ export default function SecretPage() {
           </p>
 
           <p
-            className="text-sm italic"
+            className="text-lg italic text-center"
             style={{
               color: design.colors.textLight,
               fontFamily: design.fonts.bodyFont,
             }}
           >
-            (Yes, Basil the cat is a co-developer. He specializes in keyboard testing and moral support.)
+            (Yes, Basil did actually help. No she is not an employee at LR Paris.)
           </p>
         </div>
 
-        <Link
-          href="/"
-          className="inline-block px-6 py-3 text-white font-semibold hover:opacity-90 transition-opacity"
-          style={{
-            backgroundColor: design.colors.secondary,
-            borderRadius: `${design.style.cornerRadius}px`,
-            fontFamily: design.fonts.bodyFont,
-          }}
-        >
-          ← Back to Home
-        </Link>
+        <div className="mt-12 text-center">
+          <Link
+            href="/"
+            className="inline-block px-6 py-3 text-white font-semibold hover:opacity-90 transition-opacity"
+            style={{
+              backgroundColor: design.colors.secondary,
+              borderRadius: `${design.style.cornerRadius}px`,
+              fontFamily: design.fonts.bodyFont,
+            }}
+          >
+            ← Back to Home
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -26,13 +26,19 @@ export default function Footer({ footerText, primaryColor, bodyFont = 'Inter' }:
                 About
               </Link>
             </p>
-            {/* Easter Egg */}
+            {/* Easter Egg - subtle SVG */}
             <Link
               href="/secret"
-              className="text-2xl hover:scale-110 transition-transform cursor-pointer"
-              title="🥚"
+              className="hover:opacity-100 transition-opacity"
+              title="?"
             >
-              🥚
+              <Image
+                src="/egg.svg"
+                alt=""
+                width={12}
+                height={15}
+                className="opacity-30 hover:opacity-100 transition-opacity"
+              />
             </Link>
           </div>
           {/* LR Paris Logo */}

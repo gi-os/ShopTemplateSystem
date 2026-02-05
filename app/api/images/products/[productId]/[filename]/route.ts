@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { getAllProducts } from '@/lib/catalog';
 
 function slugify(text: string): string {
   return text
@@ -26,6 +27,9 @@ export async function GET(
     // Iterate through collections to find matching product
     for (const collection of collections) {
       if (!collection.isDirectory()) continue;
+
+      const collectionSlugified = slugify(collection.name);
+      if (collectionSlugified !== collectionSlug) continue;
 
       const collectionPath = path.join(collectionsPath, collection.name);
       const collectionSlug = slugify(collection.name);

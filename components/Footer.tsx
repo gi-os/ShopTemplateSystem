@@ -34,7 +34,7 @@ export default function Footer({ footerText, primaryColor, bodyFont = 'Inter' }:
             style={{ borderRadius: '12px' }}
           >
             <Image
-              src="/api/images/logos/lr-paris-logo.svg"
+              src="/lr-paris-logo.svg"
               alt="LR Paris"
               width={60}
               height={60}

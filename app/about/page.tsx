@@ -229,6 +229,49 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Built by LR Paris */}
+      <section className="mb-8">
+        <a
+          href="https://lrparis.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-4 max-w-2xl p-6 border hover:shadow-md transition-shadow"
+          style={{
+            borderColor: design.colors.border,
+            backgroundColor: '#f9fafb',
+            borderRadius: `${design.style.cornerRadius}px`,
+          }}
+        >
+          <div className="bg-white rounded-lg p-3" style={{ borderRadius: '12px' }}>
+            <img
+              src="/lr-paris-logo.svg"
+              alt="LR Paris"
+              className="w-16 h-16"
+            />
+          </div>
+          <div>
+            <p
+              className="text-lg font-semibold"
+              style={{
+                color: design.colors.primary,
+                fontFamily: design.fonts.titleFont,
+              }}
+            >
+              Built by LR Paris
+            </p>
+            <p
+              className="text-sm"
+              style={{
+                color: design.colors.textLight,
+                fontFamily: design.fonts.bodyFont,
+              }}
+            >
+              Visit lrparis.com to learn more
+            </p>
+          </div>
+        </a>
+      </section>
+
       {/* Back to Home */}
       <div className="mt-12">
         <Link

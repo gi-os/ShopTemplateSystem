@@ -17,9 +17,7 @@ interface HeaderProps {
 interface Collection {
   id: string;
   name: string;
-  description: string;
-  imageUrl: string;
-  productCount: number;
+  products: any[];
 }
 
 export default function Header({
@@ -53,7 +51,12 @@ export default function Header({
     // Fetch collections
     fetch('/api/collections')
       .then(r => r.json())
-      .then(data => setCollections(data.collections || []))
+      .then(data => {
+        // API returns array directly
+        if (Array.isArray(data)) {
+          setCollections(data);
+        }
+      })
       .catch(console.error);
   }, []);
 
@@ -115,11 +118,13 @@ export default function Header({
               </button>
               {showDropdown && (
                 <div
-                  className="absolute top-full left-0 mt-2 w-56 shadow-lg py-2"
+                  className="absolute top-full left-0 mt-1 w-56 shadow-lg py-2 z-50"
                   style={{
                     backgroundColor: 'white',
                     borderRadius: `${cornerRadius}px`,
                   }}
+                  onMouseEnter={() => setShowDropdown(true)}
+                  onMouseLeave={() => setShowDropdown(false)}
                 >
                   <Link
                     href="/collections"

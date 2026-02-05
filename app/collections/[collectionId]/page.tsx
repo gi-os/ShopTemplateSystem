@@ -209,7 +209,7 @@ export default function CollectionPage({ params }: { params: Promise<{ collectio
                   <img
                     src={product.images[0]}
                     alt={product.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain p-4"
                   />
                 </div>
               ) : (
@@ -257,7 +257,7 @@ export default function CollectionPage({ params }: { params: Promise<{ collectio
                       fontFamily: design.fonts.bodyFont,
                     }}
                   >
-                    Box of {product.unitsPerBox} units!
+                    Box of {product.unitsPerBox} units
                   </p>
                   <p
                     className="text-2xl font-bold"

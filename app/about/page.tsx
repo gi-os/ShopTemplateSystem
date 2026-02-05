@@ -133,7 +133,7 @@ export default function AboutPage() {
                 onClick={() => toggleFAQ(index)}
                 className="w-full text-left px-6 py-4 flex justify-between items-center hover:opacity-80 transition-opacity"
                 style={{
-                  backgroundColor: openFAQ === index ? design.colors.background : '#f9fafb',
+                  backgroundColor: openFAQ === index ? design.colors.accent : design.colors.background,
                 }}
               >
                 <h3
@@ -193,7 +193,7 @@ export default function AboutPage() {
           className="border p-6 max-w-2xl"
           style={{
             borderColor: design.colors.border,
-            backgroundColor: '#f9fafb',
+            backgroundColor: design.colors.background,
             borderRadius: `${design.style.cornerRadius}px`,
           }}
         >
@@ -238,7 +238,7 @@ export default function AboutPage() {
           className="flex items-center gap-4 max-w-2xl p-6 border hover:shadow-md transition-shadow"
           style={{
             borderColor: design.colors.border,
-            backgroundColor: '#f9fafb',
+            backgroundColor: design.colors.background,
             borderRadius: `${design.style.cornerRadius}px`,
           }}
         >

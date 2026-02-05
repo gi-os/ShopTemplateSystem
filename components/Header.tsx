@@ -57,6 +57,12 @@ export default function Header({ companyName, logoPath, primaryColor, secondaryC
               Collections
             </Link>
             <Link
+              href="/about"
+              className="text-white hover:opacity-80 transition-opacity"
+            >
+              About
+            </Link>
+            <Link
               href="/cart"
               className="flex items-center space-x-2 px-4 py-2 rounded-lg text-white hover:opacity-90 transition-opacity"
               style={{ backgroundColor: secondaryColor }}

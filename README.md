@@ -155,22 +155,50 @@ Place product images in the `Photos` subfolder:
 
 ## Order Management
 
-Orders are stored in `DATABASE/Orders/orders.csv` with the following fields:
+Orders are stored in `DATABASE/Orders/` as individual JSON files. Each order contains:
 
-- Order ID
-- Date
-- Customer Name
-- Email
-- Phone
-- Company
-- Shipping Address
-- Freight Option
-- Freight Company
-- Freight Account
-- Freight Contact
-- Order Notes
-- Items (JSON)
-- Total
+- Order ID and timestamp
+- Customer information (name, email, company, phone, address)
+- Order items with quantities and pricing
+- Order summary and totals
+- Special instructions/notes
+
+See `DATABASE/Orders/README.md` for complete order file format documentation.
+
+## Version System
+
+The Shop Template System uses a custom versioning scheme:
+
+**Current Version:** `STS-0.14`
+
+**Format:** `STS-X.YY`
+- STS = Shop Template System prefix
+- X = Major version (0 for development)
+- YY = Minor version (increments by 01 for each update)
+
+Version is displayed in:
+- Footer on all pages
+- About page (`/about`)
+- System information
+
+See `VERSIONING.md` for complete versioning documentation and how to increment versions.
+
+## Documentation
+
+Comprehensive README files are included throughout the codebase:
+
+- `DATABASE/README.md` - Overview of data structure
+- `DATABASE/Design/README.md` - Branding and design system
+- `DATABASE/ShopCollections/README.md` - Product catalog structure
+- `app/README.md` - Next.js app structure
+- `lib/README.md` - Utility functions
+- `components/README.md` - React components
+
+Each subfolder contains detailed documentation for exact file formats and specifications.
+
+## Built With
+
+**LR Paris Shuttle** - This system was built with LR Paris Shuttle
 
 ## License
 

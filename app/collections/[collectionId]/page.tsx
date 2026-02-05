@@ -4,12 +4,15 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+type SortOption = 'name-asc' | 'name-desc' | 'price-asc' | 'price-desc' | 'units-asc' | 'units-desc' | 'total-asc' | 'total-desc';
+
 export default function CollectionPage({ params }: { params: Promise<{ collectionId: string }> }) {
   const [collectionId, setCollectionId] = useState<string | null>(null);
   const [design, setDesign] = useState<any>(null);
   const [collection, setCollection] = useState<any>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [collectionImages, setCollectionImages] = useState<string[]>([]);
+  const [sortBy, setSortBy] = useState<SortOption>('name-asc');
 
   useEffect(() => {
     async function loadData() {
@@ -56,6 +59,30 @@ export default function CollectionPage({ params }: { params: Promise<{ collectio
   if (!design || !collection) {
     return <div className="container mx-auto px-4 py-12">Loading...</div>;
   }
+
+  // Sort products based on selected option
+  const sortedProducts = [...collection.products].sort((a, b) => {
+    switch (sortBy) {
+      case 'name-asc':
+        return a.name.localeCompare(b.name);
+      case 'name-desc':
+        return b.name.localeCompare(a.name);
+      case 'price-asc':
+        return a.itemCost - b.itemCost;
+      case 'price-desc':
+        return b.itemCost - a.itemCost;
+      case 'units-asc':
+        return a.unitsPerBox - b.unitsPerBox;
+      case 'units-desc':
+        return b.unitsPerBox - a.unitsPerBox;
+      case 'total-asc':
+        return a.boxCost - b.boxCost;
+      case 'total-desc':
+        return b.boxCost - a.boxCost;
+      default:
+        return 0;
+    }
+  });
 
   return (
     <div>
@@ -122,8 +149,52 @@ export default function CollectionPage({ params }: { params: Promise<{ collectio
           )}
         </div>
 
+        {/* Sort Options */}
+        <div className="mb-6 flex items-center justify-between">
+          <p
+            style={{
+              color: design.colors.textLight,
+              fontFamily: design.fonts.bodyFont,
+            }}
+          >
+            {collection.products.length} {collection.products.length === 1 ? 'product' : 'products'}
+          </p>
+          <div className="flex items-center gap-3">
+            <label
+              htmlFor="sort"
+              style={{
+                color: design.colors.text,
+                fontFamily: design.fonts.bodyFont,
+              }}
+            >
+              Sort by:
+            </label>
+            <select
+              id="sort"
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as SortOption)}
+              className="px-4 py-2 border"
+              style={{
+                borderColor: design.colors.border,
+                borderRadius: `${design.style.cornerRadius}px`,
+                fontFamily: design.fonts.bodyFont,
+                color: design.colors.text,
+              }}
+            >
+              <option value="name-asc">Name (A-Z)</option>
+              <option value="name-desc">Name (Z-A)</option>
+              <option value="price-asc">Price per unit (Low to High)</option>
+              <option value="price-desc">Price per unit (High to Low)</option>
+              <option value="units-asc">Units per box (Low to High)</option>
+              <option value="units-desc">Units per box (High to Low)</option>
+              <option value="total-asc">Box price (Low to High)</option>
+              <option value="total-desc">Box price (High to Low)</option>
+            </select>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {collection.products.map((product: any) => (
+          {sortedProducts.map((product: any) => (
             <Link
               key={product.id}
               href={`/products/${product.id}`}
@@ -186,7 +257,7 @@ export default function CollectionPage({ params }: { params: Promise<{ collectio
                       fontFamily: design.fonts.bodyFont,
                     }}
                   >
-                    Box of {product.unitsPerBox}
+                    Box of {product.unitsPerBox} units!
                   </p>
                   <p
                     className="text-2xl font-bold"

@@ -77,6 +77,13 @@ export default function Header({
               Collections
             </Link>
             <Link
+              href="/shop-all"
+              className="text-white hover:opacity-80 transition-opacity"
+              style={{ fontFamily: bodyFont }}
+            >
+              Shop All
+            </Link>
+            <Link
               href="/cart"
               className="flex items-center space-x-2 px-4 py-2 text-white hover:opacity-90 transition-opacity"
               style={{

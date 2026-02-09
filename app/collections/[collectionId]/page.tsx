@@ -34,11 +34,11 @@ export default function CollectionPage({ params }: { params: Promise<{ collectio
       const coll = await collectionResponse.json();
       setCollection(coll);
 
-      // Collect all product images for the carousel
+      // Collect main (first) product image for the carousel
       const images: string[] = [];
       coll.products.forEach((product: any) => {
         if (product.images && product.images.length > 0) {
-          images.push(...product.images);
+          images.push(product.images[0]);
         }
       });
       setCollectionImages(images);
@@ -205,7 +205,7 @@ export default function CollectionPage({ params }: { params: Promise<{ collectio
               }}
             >
               {product.images.length > 0 ? (
-                <div className="aspect-square bg-white relative">
+                <div className="aspect-square bg-gray-100 relative">
                   <img
                     src={product.images[0]}
                     alt={product.name}
@@ -213,7 +213,7 @@ export default function CollectionPage({ params }: { params: Promise<{ collectio
                   />
                 </div>
               ) : (
-                <div className="aspect-square bg-white flex items-center justify-center">
+                <div className="aspect-square bg-gray-100 flex items-center justify-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-16 w-16 text-gray-300"

@@ -15,13 +15,13 @@ interface CollectionCardProps {
 
 export default function CollectionCard({ collection, design, tick }: CollectionCardProps) {
   const images = useMemo(() => {
-    const productImages: string[] = [];
+    const mainImages: string[] = [];
     collection.products.forEach((product: any) => {
       if (product.images && product.images.length > 0) {
-        productImages.push(...product.images);
+        mainImages.push(product.images[0]);
       }
     });
-    return productImages;
+    return mainImages;
   }, [collection]);
 
   const currentImageIndex = images.length > 0 ? tick % images.length : 0;
@@ -37,7 +37,7 @@ export default function CollectionCard({ collection, design, tick }: CollectionC
     >
       {/* Image Carousel */}
       {images.length > 0 && (
-        <div className="relative w-full aspect-square bg-white overflow-hidden">
+        <div className="relative w-full aspect-square bg-gray-100 overflow-hidden">
           {images.map((image: string, index: number) => (
             <div
               key={`${image}-${index}`}

@@ -33,6 +33,7 @@ export default function CollectionPage({ params }: { params: Promise<{ collectio
 
       const coll = await collectionResponse.json();
       setCollection(coll);
+      document.title = `${designData.companyName} - ${coll.name}`;
 
       // Collect main (first) product image for the carousel
       const images: string[] = [];

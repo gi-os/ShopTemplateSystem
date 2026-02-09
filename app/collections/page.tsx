@@ -20,6 +20,7 @@ export default function CollectionsPage() {
 
       setDesign(designData);
       setCollections(collectionsData);
+      document.title = `${designData.companyName} - Collections`;
     }
     loadData();
   }, []);

@@ -21,6 +21,7 @@ export default function ShopAllPage() {
       const collectionsData = await collectionsResponse.json();
 
       setDesign(designData);
+      document.title = `${designData.companyName} - Shop All`;
 
       // Flatten all products from all collections
       const allProducts: any[] = [];
@@ -173,7 +174,7 @@ export default function ShopAllPage() {
                   fontFamily: design.fonts.bodyFont,
                 }}
               >
-                from {product.collectionName}
+                From {product.collectionName}
               </p>
               <p
                 className="text-sm mb-2"

@@ -58,6 +58,9 @@ export default function ProductPage({ params }: { params: Promise<{ productId: s
       .then(([productData, designData]) => {
         setProduct(productData);
         setDesign(designData);
+        if (productData && designData) {
+          document.title = `${designData.companyName} - ${productData.name}`;
+        }
       })
       .catch(error => {
         console.error('Error loading product:', error);

@@ -123,7 +123,7 @@ export default function ShopAllPage() {
         {sortedProducts.map((product: any) => (
           <Link
             key={product.id}
-            href={`/products/${product.id}`}
+            href={`/products/${product.id}?from=shop-all`}
             className="border overflow-hidden hover:shadow-lg transition-shadow"
             style={{
               borderColor: design.colors.border,
@@ -131,7 +131,7 @@ export default function ShopAllPage() {
             }}
           >
             {product.images.length > 0 ? (
-              <div className="aspect-square bg-gray-100 relative">
+              <div className="aspect-square bg-white relative">
                 <img
                   src={product.images[0]}
                   alt={product.name}
@@ -139,7 +139,7 @@ export default function ShopAllPage() {
                 />
               </div>
             ) : (
-              <div className="aspect-square bg-gray-100 flex items-center justify-center">
+              <div className="aspect-square bg-white flex items-center justify-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-16 w-16 text-gray-300"

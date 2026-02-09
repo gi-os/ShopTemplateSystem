@@ -6,6 +6,7 @@ import CollectionCard from './CollectionCard';
 export default function CollectionsPage() {
   const [design, setDesign] = useState<any>(null);
   const [collections, setCollections] = useState<any[]>([]);
+  const [tick, setTick] = useState(0);
 
   useEffect(() => {
     async function loadData() {
@@ -21,6 +22,14 @@ export default function CollectionsPage() {
       setCollections(collectionsData);
     }
     loadData();
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTick((prev) => prev + 1);
+    }, 3000);
+
+    return () => clearInterval(interval);
   }, []);
 
   if (!design) {
@@ -45,6 +54,7 @@ export default function CollectionsPage() {
             key={collection.id}
             collection={collection}
             design={design}
+            tick={tick}
           />
         ))}
       </div>

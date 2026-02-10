@@ -83,7 +83,8 @@ export default function PasswordProtection({
               <img
                 src={logoPath}
                 alt={companyName}
-                className="h-12 md:h-16 w-auto"
+                className="h-12 md:h-16 w-auto flex-shrink-0"
+                style={{ objectFit: 'contain' }}
               />
             ) : (
               <h1

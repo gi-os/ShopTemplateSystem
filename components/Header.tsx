@@ -71,7 +71,7 @@ export default function Header({
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-3">
             {(logoWhitePath || logoPath) ? (
-              <img src={(logoWhitePath || logoPath)!} alt={companyName} className="h-8 md:h-10 w-auto" />
+              <img src={(logoWhitePath || logoPath)!} alt={companyName} className="h-8 md:h-10 w-auto flex-shrink-0" style={{ objectFit: 'contain' }} />
             ) : (
               <span className="text-2xl font-bold text-white" style={{ fontFamily: titleFont }}>{companyName}</span>
             )}

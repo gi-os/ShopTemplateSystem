@@ -67,8 +67,8 @@ export default function Home() {
                 <img
                   src={design.logoWhitePath}
                   alt={design.companyName}
-                  className="h-20 md:h-28 w-auto mx-auto mb-4"
-                  style={{ objectFit: 'contain' }}
+                  className="w-auto mx-auto mb-4"
+                  style={{ height: '4.5rem', objectFit: 'contain' }}
                 />
               ) : (
                 <h1

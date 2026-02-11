@@ -45,7 +45,7 @@ export default function CollectionCard({ collection, design, tick }: CollectionC
     >
       {/* Image Carousel */}
       {images.length > 0 && hasShowcase ? (
-        <div className="relative w-full bg-gray-100 overflow-hidden">
+        <div className="relative w-full bg-gray-100 overflow-hidden border-b" style={{ borderColor: design.colors.border }}>
           <img
             src={images[0]}
             alt={`${collection.name} showcase`}

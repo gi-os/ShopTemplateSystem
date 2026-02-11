@@ -172,11 +172,12 @@ export default function Home() {
                 >
                   {/* Showcase Image */}
                   {showcaseImage && (
-                    <div className="relative w-full aspect-square bg-gray-100 overflow-hidden">
+                    <div className="relative w-full bg-gray-100 overflow-hidden border-b" style={{ borderColor: design.colors.border }}>
                       <img
                         src={showcaseImage}
                         alt={collection.name}
-                        className="w-full h-full object-contain p-4"
+                        className="w-full h-auto object-cover"
+                        style={{ maxHeight: '400px' }}
                       />
                     </div>
                   )}

@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { getCart } from '@/lib/cart';
 
@@ -22,19 +23,32 @@ interface Collection {
 }
 
 export default function Header({
-  companyName,
-  logoPath,
-  logoWhitePath,
-  primaryColor,
-  secondaryColor,
-  titleFont = 'Inter',
-  bodyFont = 'Inter',
-  cornerRadius = 12
+  companyName: initialCompanyName,
+  logoPath: initialLogoPath,
+  logoWhitePath: initialLogoWhitePath,
+  primaryColor: initialPrimaryColor,
+  secondaryColor: initialSecondaryColor,
+  titleFont: initialTitleFont = 'Inter',
+  bodyFont: initialBodyFont = 'Inter',
+  cornerRadius: initialCornerRadius = 12
 }: HeaderProps) {
   const [cartItemCount, setCartItemCount] = useState(0);
   const [collections, setCollections] = useState<Collection[]>([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Design state: start with SSR props, override with client-side fetch
+  const [companyName, setCompanyName] = useState(initialCompanyName);
+  const [logoPath, setLogoPath] = useState(initialLogoPath);
+  const [logoWhitePath, setLogoWhitePath] = useState(initialLogoWhitePath);
+  const [primaryColor, setPrimaryColor] = useState(initialPrimaryColor);
+  const [secondaryColor, setSecondaryColor] = useState(initialSecondaryColor);
+  const [titleFont, setTitleFont] = useState(initialTitleFont);
+  const [bodyFont, setBodyFont] = useState(initialBodyFont);
+  const [cornerRadius, setCornerRadius] = useState(initialCornerRadius);
+
+  const pathname = usePathname();
+  const isHome = pathname === '/';
 
   useEffect(() => {
     const updateCartCount = () => {
@@ -51,13 +65,24 @@ export default function Header({
   }, []);
 
   useEffect(() => {
-    // Fetch collections
-    fetch('/api/collections')
-      .then(r => r.json())
-      .then(data => {
-        // API returns array directly
-        if (Array.isArray(data)) {
-          setCollections(data);
+    // Fetch collections and design data client-side for fresh DATABASE values
+    Promise.all([
+      fetch('/api/collections').then(r => r.json()),
+      fetch('/api/design').then(r => r.json()),
+    ])
+      .then(([collectionsData, designData]) => {
+        if (Array.isArray(collectionsData)) {
+          setCollections(collectionsData);
+        }
+        if (designData && !designData.error) {
+          setCompanyName(designData.companyName);
+          setLogoPath(designData.logoPath);
+          setLogoWhitePath(designData.logoWhitePath);
+          setPrimaryColor(designData.colors.primary);
+          setSecondaryColor(designData.colors.secondary);
+          setTitleFont(designData.fonts.titleFont);
+          setBodyFont(designData.fonts.bodyFont);
+          setCornerRadius(designData.style.cornerRadius);
         }
       })
       .catch(console.error);
@@ -66,13 +91,19 @@ export default function Header({
   return (
     <header
       className="shadow-md sticky top-0 z-50"
-      style={{ backgroundColor: primaryColor }}
+      style={{
+        backgroundColor: primaryColor,
+        position: 'sticky',
+        top: 0,
+        zIndex: 50,
+        boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+      }}
     >
-      <div className="container mx-auto px-4 py-3">
+      <div className="container mx-auto px-4 py-3" style={{ maxWidth: '1280px', marginLeft: 'auto', marginRight: 'auto', paddingLeft: '1rem', paddingRight: '1rem', paddingTop: '0.75rem', paddingBottom: '0.75rem' }}>
         {/* Mobile Header */}
-        <div className="md:hidden">
+        <div className="header-mobile md:hidden">
           {/* Logo centered above navigation */}
-          <div className="flex justify-center mb-2">
+          <div className="flex justify-center mb-2" style={{ opacity: isHome ? 0 : 1, transition: 'opacity 0.3s ease', pointerEvents: isHome ? 'none' : 'auto' }}>
             <Link href="/" className="flex items-center">
               {(logoWhitePath || logoPath) ? (
                 <img src={(logoWhitePath || logoPath)!} alt={companyName} className="h-8 w-auto flex-shrink-0" style={{ objectFit: 'contain' }} />
@@ -195,8 +226,8 @@ export default function Header({
         </div>
 
         {/* Desktop Header */}
-        <div className="hidden md:flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-3">
+        <div className="header-desktop hidden md:flex items-center justify-between" style={{ alignItems: 'center', justifyContent: 'space-between' }}>
+          <Link href="/" className="flex items-center space-x-3" style={{ opacity: isHome ? 0 : 1, transition: 'opacity 0.3s ease', pointerEvents: isHome ? 'none' : 'auto' }}>
             {(logoWhitePath || logoPath) ? (
               <img src={(logoWhitePath || logoPath)!} alt={companyName} className="h-8 md:h-10 w-auto flex-shrink-0" style={{ objectFit: 'contain' }} />
             ) : (

@@ -12,6 +12,7 @@ export default function CollectionPage({ params }: { params: Promise<{ collectio
   const [collection, setCollection] = useState<any>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [collectionImages, setCollectionImages] = useState<string[]>([]);
+  const [hasShowcaseImage, setHasShowcaseImage] = useState(false);
   const [sortBy, setSortBy] = useState<SortOption>('name-asc');
 
   useEffect(() => {
@@ -35,14 +36,20 @@ export default function CollectionPage({ params }: { params: Promise<{ collectio
       setCollection(coll);
       document.title = `${designData.companyName} - ${coll.name}`;
 
-      // Collect main (first) product image for the carousel
-      const images: string[] = [];
-      coll.products.forEach((product: any) => {
-        if (product.images && product.images.length > 0) {
-          images.push(product.images[0]);
-        }
-      });
-      setCollectionImages(images);
+      // Use showcase photo if available, otherwise fall back to product images
+      const showcaseImage = designData.collectionShowcaseImages?.[resolvedParams.collectionId];
+      if (showcaseImage) {
+        setCollectionImages([showcaseImage]);
+        setHasShowcaseImage(true);
+      } else {
+        const images: string[] = [];
+        coll.products.forEach((product: any) => {
+          if (product.images && product.images.length > 0) {
+            images.push(product.images[0]);
+          }
+        });
+        setCollectionImages(images);
+      }
     }
     loadData();
   }, [params]);
@@ -88,7 +95,24 @@ export default function CollectionPage({ params }: { params: Promise<{ collectio
   return (
     <div>
       {/* Collection Hero Carousel */}
-      {collectionImages.length > 0 && (
+      {collectionImages.length > 0 && hasShowcaseImage ? (
+        <div className="relative w-full mb-8 overflow-hidden bg-gray-100">
+          <img
+            src={collectionImages[0]}
+            alt={collection.name}
+            className="w-full h-auto object-cover"
+            style={{ maxHeight: '600px' }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end justify-center pb-8">
+            <h1
+              className="text-5xl font-bold text-white px-4 text-center"
+              style={{ fontFamily: design.fonts.titleFont }}
+            >
+              {collection.name}
+            </h1>
+          </div>
+        </div>
+      ) : collectionImages.length > 0 ? (
         <div className="relative w-full h-[400px] mb-8 overflow-hidden bg-gray-100">
           {collectionImages.map((image: string, index: number) => (
             <div
@@ -114,7 +138,7 @@ export default function CollectionPage({ params }: { params: Promise<{ collectio
             </h1>
           </div>
         </div>
-      )}
+      ) : null}
 
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
@@ -206,7 +230,7 @@ export default function CollectionPage({ params }: { params: Promise<{ collectio
               }}
             >
               {product.images.length > 0 ? (
-                <div className="aspect-square bg-gray-100 relative">
+                <div className="aspect-square bg-gray-100 relative border-b" style={{ borderColor: design.colors.border }}>
                   <img
                     src={product.images[0]}
                     alt={product.name}
@@ -214,7 +238,7 @@ export default function CollectionPage({ params }: { params: Promise<{ collectio
                   />
                 </div>
               ) : (
-                <div className="aspect-square bg-gray-100 flex items-center justify-center">
+                <div className="aspect-square bg-gray-100 flex items-center justify-center border-b" style={{ borderColor: design.colors.border }}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-16 w-16 text-gray-300"

@@ -63,12 +63,21 @@ export default function Home() {
           ))}
           <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
             <div className="text-center text-white px-4">
-              <h1
-                className="text-6xl font-bold mb-4"
-                style={{ fontFamily: design.fonts.titleFont }}
-              >
-                {design.companyName}
-              </h1>
+              {design.logoWhitePath ? (
+                <img
+                  src={design.logoWhitePath}
+                  alt={design.companyName}
+                  className="w-auto mx-auto mb-4"
+                  style={{ height: '4.5rem', objectFit: 'contain' }}
+                />
+              ) : (
+                <h1
+                  className="text-6xl font-bold mb-4"
+                  style={{ fontFamily: design.fonts.titleFont }}
+                >
+                  {design.companyName}
+                </h1>
+              )}
               <p className="text-2xl mb-8" style={{ fontFamily: design.fonts.bodyFont }}>
                 {design.descriptions.tagline}
               </p>
@@ -172,11 +181,12 @@ export default function Home() {
                 >
                   {/* Showcase Image */}
                   {showcaseImage && (
-                    <div className="relative w-full aspect-square bg-gray-100 overflow-hidden">
+                    <div className="relative w-full bg-gray-100 overflow-hidden border-b" style={{ borderColor: design.colors.border }}>
                       <img
                         src={showcaseImage}
                         alt={collection.name}
-                        className="w-full h-full object-contain p-4"
+                        className="w-full h-auto object-cover"
+                        style={{ maxHeight: '400px' }}
                       />
                     </div>
                   )}
